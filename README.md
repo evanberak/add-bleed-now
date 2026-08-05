@@ -41,3 +41,8 @@ source .venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+
+## UI refresh
+
+This package includes a light, soft-white interface with blue accents inspired by the reference workspace screenshot.
