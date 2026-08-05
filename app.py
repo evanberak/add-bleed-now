@@ -17,7 +17,7 @@ st.set_page_config(
     page_title="Print Bleed Tool",
     page_icon="🖨️",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 st.markdown(
@@ -184,6 +184,34 @@ st.markdown(
             border-radius: 14px;
             overflow: hidden;
         }
+
+        @media (max-width: 768px) {
+            .block-container {
+                padding-left: 0.8rem;
+                padding-right: 0.8rem;
+                padding-top: 0.8rem;
+            }
+
+            h1 {
+                font-size: 1.4rem !important;
+            }
+
+            [data-testid="stSidebar"] {
+                min-width: 260px !important;
+                max-width: 280px !important;
+            }
+
+            .metric-card,
+            .status-card {
+                padding: 0.8rem;
+            }
+
+            div.stButton > button,
+            div.stDownloadButton > button {
+                min-height: 42px;
+            }
+        }
+
     </style>
     """,
     unsafe_allow_html=True,
@@ -209,51 +237,13 @@ with st.sidebar:
         value=300,
     )
 
-    mode_label = st.selectbox(
-        "Extension Mode",
-        options=[
-            "Background Only",
-            "Automatic",
-            "Edge Stretch",
-            "Mirror Edge",
-        ],
-        index=0,
-    )
-
-    mode_map = {
-        "Background Only": ExtensionMode.BACKGROUND_ONLY,
-        "Automatic": ExtensionMode.AUTOMATIC,
-        "Edge Stretch": ExtensionMode.EDGE_STRETCH,
-        "Mirror Edge": ExtensionMode.MIRROR,
-    }
-
-    protect_foreground = st.toggle("Foreground Protection", value=True)
-
-    protection_strength = st.slider(
-        "Protection Strength",
-        min_value=0,
-        max_value=100,
-        value=65,
-        disabled=not protect_foreground,
-    )
-
-    square_corners = st.toggle("Square Corners", value=True)
-
-    source_strip = st.slider(
-        "Analysis Depth",
-        min_value=0.10,
-        max_value=1.0,
-        value=0.35,
-        step=0.05,
-    )
-
-    manual_color = st.toggle("Solid Background", value=False)
-
-    color_value = st.color_picker(
-        "Background Color",
-        "#0054A6",
-        disabled=not manual_color,
-    )
+    extension_mode = ExtensionMode.BACKGROUND_ONLY
+    protect_foreground = True
+    protection_strength = 65
+    square_corners = True
+    source_strip = 0.35
+    manual_color = False
+    color_value = "#0054A6"
 
 st.header("Upload Artwork")
 
@@ -297,7 +287,7 @@ for column, (label, value) in zip(overview_cols, overview_values):
 settings = BleedSettings(
     bleed_inches=float(bleed_inches),
     dpi=int(dpi),
-    extension_mode=mode_map[mode_label],
+    extension_mode=extension_mode,
     protect_foreground=bool(protect_foreground),
     protection_strength=int(protection_strength),
     square_corners=bool(square_corners),

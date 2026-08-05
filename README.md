@@ -46,3 +46,8 @@ streamlit run app.py
 ## UI refresh
 
 This package includes a light, soft-white interface with blue accents inspired by the reference workspace screenshot.
+
+
+## Mobile cleanup
+
+The interface now shows only Bleed and Resolution settings. Background-only extension, foreground protection, square-corner repair, and analysis depth use fixed production defaults.
