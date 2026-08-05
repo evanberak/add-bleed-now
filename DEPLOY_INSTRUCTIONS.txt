@@ -1,0 +1,26 @@
+PRINT BLEED TOOL — STREAMLIT DEPLOYMENT
+
+1. Unzip this package.
+2. Upload every file directly to the top level of the GitHub repository.
+3. Confirm GitHub shows app.py and requirements.txt at the repository root.
+4. Use branch: main
+5. Use main file path: app.py
+
+IMPORTANT PYTHON SETTING
+------------------------
+Deploy with Python 3.12.
+
+If your current Streamlit deployment uses Python 3.14, delete the deployment and
+create a new one. Streamlit does not let you change Python versions after deployment.
+
+During the new deployment:
+- Click Advanced settings
+- Select Python 3.12
+- Save
+- Deploy
+
+The requirements file includes:
+- streamlit==1.61.0
+- starlette==1.3.0
+
+This prevents the GZipResponder startup conflict seen in the earlier deployment.
